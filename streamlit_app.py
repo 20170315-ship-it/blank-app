@@ -16,15 +16,59 @@ que cae en el punto hidráulicamente más alejado de la cuenca, hasta llegar al 
 """)
 
 # =====================================================================
-# 2. MOSTRAR LA IMAGEN ADJUNTA (Tabla de Fórmulas)
+# 2. MOSTRAR LA TABLA INFORMATIVA DE MÉTODOS
 # =====================================================================
-nombre_imagen = "image_ebb78a.jpg"
-if os.path.exists(nombre_imagen):
-    st.image(nombre_imagen, caption="Resumen de las ecuaciones de tiempo de concentración (Chow, 1994)", use_container_width=True)
-else:
-    st.warning(f"Aviso: Coloque la imagen '{nombre_imagen}' en la misma carpeta del script para visualizar la tabla resumen.")
+# Creamos la estructura de datos fiel a la tabla que proporcionaste
+datos_tabla = {
+    "Método (Año)": [
+        "Kirpich (1940)", "",
+        "California Culverts Practice (1942)", "",
+        "Izzard (1946)", "", "", "",
+        "Federal Aviation Administration (1970)", "", "",
+        "Ecuaciones de onda cinemática (1965/1973)", "", "", "",
+        "Ecuación de retardo SCS (1973)", "", ""
+    ],
+    "Input": [
+        "L", "S",
+        "L", "H",
+        "i", "c", "L", "S",
+        "C", "L", "S",
+        "L", "n", "i", "S",
+        "L", "CN", "S"
+    ],
+    "Descripción": [
+        "Longitud del canal desde aguas arriba hasta la salida.", "Pendiente promedio de la cuenca.",
+        "Longitud del curso de agua más largo.", "Diferencia de nivel entre la divisoria de aguas y la salida.",
+        "Intensidad de lluvia.", "Coeficiente de retardo.", "Longitud de la trayectoria de flujo.", "Pendiente de la trayectoria de flujo.",
+        "Coeficiente de escorrentía del método racional.", "Longitud del flujo superficial.", "Pendiente de la superficie.",
+        "Longitud del flujo superficial.", "Coeficiente de rugosidad de Manning.", "Intensidad de lluvia.", "Pendiente promedio del terreno.",
+        "Longitud hidráulica de la cuenca (mayor trayectoria de flujo).", "Número de curva SCS.", "Pendiente promedio de la cuenca."
+    ],
+    "Unidades": [
+        "m", "m/m",
+        "m", "m",
+        "mm/h", "-", "m", "m/m",
+        "-", "m", "m/m",
+        "m", "-", "mm/h", "m/m",
+        "m", "-", "m/m"
+    ],
+    "Observación": [
+        "Desarrollada a partir de información del SCS de siete cuencas rurales de Tennessee con canales bien definidos y pendientes empinadas (3-10%); para flujo superficial en superficie de concreto o asfalto. Multiplicar tc por 0,4; para canales de concreto, multiplicar por 0,2; sin ajustes para flujo superficial en suelo descubierto o para flujo en cunetas.", "",
+        "Esencialmente es la ecuación de Kirpich; desarrollada para pequeñas cuencas montañosas en California.", "",
+        "Desarrollada experimentalmente en laboratorio por el Bureau of Public Roads para flujo superficial en caminos y áreas de césped; los valores del coeficiente de retardo varían desde 0,0070 para pavimentos muy lisos hasta 0,012 para pavimentos de concreto y 0,06 para superficies densamente cubiertas de pasto; la solución requiere de procesos iterativos; el producto de i por L debe ser ≤ 3800.", "", "", "",
+        "Desarrollada con información sobre el drenaje de aeropuertos, recopilada por el Corps of Engineers; el método tiene como finalidad el ser usado en problemas de drenaje de aeropuertos, pero ha sido frecuentemente usado para flujo superficial en cuencas urbanas.", "", "",
+        "Ecuación para flujo superficial desarrollada a partir del análisis de onda cinemática de la escorrentía superficial desde superficies desarrolladas; el método requiere iteraciones debido a que tanto i como tc son desconocidos; la superposición de una curva de intensidad-duración-frecuencia da una solución gráfica directa para tc.", "", "", "",
+        "Ecuación desarrollada por el SCS a partir de información de cuencas de uso agrícola; ha sido adaptada a pequeñas cuencas urbanas con áreas inferiores a 810 ha; se ha encontrado que generalmente es buena cuando el área se encuentra completamente pavimentada; para áreas mixtas tiene tendencia a la sobreestimación; se aplican factores de ajuste para corregir efectos de mejoras en canales e impermeabilización de superficies; la ecuación supone que tc = 1,67 veces el retardo de la cuenca.", "", ""
+    ]
+}
 
-# =====================================================================
+# Convertimos el diccionario en un DataFrame de Pandas
+df_metodos = pd.DataFrame(datos_tabla)
+
+# Usamos un expander para que la tabla no ocupe demasiado espacio vertical de forma fija
+with st.expander("📋 Ver Tabla de Referencia: Métodos, Parámetros y Observaciones", expanded=False):
+    # Mostramos la tabla optimizada para el ancho del contenedor y ocultamos la columna de índices por defecto
+    st.dataframe(df_metodos, hide_index=True, use_container_width=True)# =====================================================================
 # 3. PESTAÑA DESPLEGABLE PARA SELECCIÓN DEL MÉTODO
 # =====================================================================
 st.subheader("Configuración del Cálculo")
