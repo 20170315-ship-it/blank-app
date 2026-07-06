@@ -18,7 +18,7 @@ que cae en el punto hidráulicamente más alejado de la cuenca, hasta llegar al 
 """)
 
 # =====================================================================
-# 2. NUEVA SECCIÓN 2: MOSTRAR LA TABLA INFORMATIVA DE MÉTODOS
+# 2. MOSTRAR LA TABLA INFORMATIVA DE MÉTODOS
 # =====================================================================
 # Creamos la estructura de datos fiel a la tabla que proporcionaste
 datos_tabla = {
